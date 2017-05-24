@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7feeeb61-2f54-4f8f-b2de-84e629b802bc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     salmin.`id_salmin` AS salmin_id_salmin,
+     salmin.`fecha` AS salmin_fecha,
+     salmin.`importe` AS salmin_importe
+FROM
+     `salmin` salmin]]>
+	</queryString>
+	<field name="salmin_id_salmin" class="java.lang.Integer"/>
+	<field name="salmin_fecha" class="java.sql.Date"/>
+	<field name="salmin_importe" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5ce182c3-79d5-443e-aa2d-56e882961436" x="0" y="0" width="572" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Instituto de Fomento a la Vivienda y Regularización del Edo. de Q. Roo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ce182c3-79d5-443e-aa2d-56e882961436" x="0" y="15" width="572" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Dirección de Finanzas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ce182c3-79d5-443e-aa2d-56e882961436" x="1" y="39" width="572" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Sistema Cuentas Por Cobrar V.0.1]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="0f542484-c554-4845-9a40-28f607619713" x="1" y="31" width="572" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5ce182c3-79d5-443e-aa2d-56e882961436" x="1" y="4" width="572" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Cátalogo de salarios mínimos regionales]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3cc5dec9-bde1-426a-94d4-7768b0d5c445" x="345" y="12" width="53" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Importe ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04c20470-8ea8-43ac-8993-b1ea55eff979" x="179" y="12" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="0f542484-c554-4845-9a40-28f607619713" x="0" y="28" width="572" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="63ef0a68-8e15-4cee-9b23-287cd5e6dee1" x="179" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{salmin_fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="04d15e46-4b33-4b31-a3ed-3ce5487ecc12" x="298" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{salmin_importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement uuid="1b48e39a-ed55-4ea4-a964-d29ce97fb225" x="452" y="34" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="7ae4db54-996f-4d80-8cbf-607ce4d6cfc2" x="532" y="34" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="1015a0a0-5b04-476a-b871-e957d7c16d3d" x="15" y="34" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

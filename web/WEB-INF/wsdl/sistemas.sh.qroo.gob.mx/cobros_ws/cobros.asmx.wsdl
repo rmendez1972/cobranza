@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://sistemas.sh.qroo.gob.mx/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://sistemas.sh.qroo.gob.mx/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://sistemas.sh.qroo.gob.mx/">
+      <s:element name="TributanetGuardarContribucion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Declaracion" type="tns:Forma" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Forma">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="tns:ArrayOfFormaDetalle" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rfc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Curp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenciaCalle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Colonia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroExterior" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroInterior" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoPostal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Municipio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pais" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosEspecificos" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Grupo" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Total" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaVencimiento" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFormaDetalle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FormaDetalle" nillable="true" type="tns:FormaDetalle" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormaDetalle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id_Concepto" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImporteManual" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TributanetGuardarContribucionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TributanetGuardarContribucionResult" type="tns:PaTributanetGuardarContribucion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaTributanetGuardarContribucion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfPaTributanetGuardarContribucionResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaTributanetGuardarContribucionResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaTributanetGuardarContribucionResult" nillable="true" type="tns:PaTributanetGuardarContribucionResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaTributanetGuardarContribucionResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Referencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rfc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalPagar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdDecContribucionTipo" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosEspecificosContribucion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AltaFecha" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AltaHora" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="PagoUsuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PagoMunicipio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PagoRecaudadora" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PagoCaja" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoFecha" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoHora" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="PagoRecibo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PagoNoOperacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Activado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Impreso" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="NoOperacionImpresion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Municipio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Historial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CabeceraImpresion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimiento" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TributanetConsultarContribucionConcepto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Grupo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TributanetConsultarContribucionConceptoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TributanetConsultarContribucionConceptoResult" type="tns:PaTributanetConsultarContribucionConcepto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaTributanetConsultarContribucionConcepto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfPaTributanetConsultarContribucionConceptoResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaTributanetConsultarContribucionConceptoResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaTributanetConsultarContribucionConceptoResult" nillable="true" type="tns:PaTributanetConsultarContribucionConceptoResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaTributanetConsultarContribucionConceptoResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Clave" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Concepto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tarifa" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rubro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoCalculo" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImporteManual" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CargarConcepto" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TributanetGuardarContribucionSoapIn">
+    <wsdl:part name="parameters" element="tns:TributanetGuardarContribucion" />
+  </wsdl:message>
+  <wsdl:message name="TributanetGuardarContribucionSoapOut">
+    <wsdl:part name="parameters" element="tns:TributanetGuardarContribucionResponse" />
+  </wsdl:message>
+  <wsdl:message name="TributanetConsultarContribucionConceptoSoapIn">
+    <wsdl:part name="parameters" element="tns:TributanetConsultarContribucionConcepto" />
+  </wsdl:message>
+  <wsdl:message name="TributanetConsultarContribucionConceptoSoapOut">
+    <wsdl:part name="parameters" element="tns:TributanetConsultarContribucionConceptoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CobrosSoap">
+    <wsdl:operation name="TributanetGuardarContribucion">
+      <wsdl:input message="tns:TributanetGuardarContribucionSoapIn" />
+      <wsdl:output message="tns:TributanetGuardarContribucionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TributanetConsultarContribucionConcepto">
+      <wsdl:input message="tns:TributanetConsultarContribucionConceptoSoapIn" />
+      <wsdl:output message="tns:TributanetConsultarContribucionConceptoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CobrosSoap" type="tns:CobrosSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TributanetGuardarContribucion">
+      <soap:operation soapAction="http://sistemas.sh.qroo.gob.mx/TributanetGuardarContribucion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TributanetConsultarContribucionConcepto">
+      <soap:operation soapAction="http://sistemas.sh.qroo.gob.mx/TributanetConsultarContribucionConcepto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CobrosSoap12" type="tns:CobrosSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TributanetGuardarContribucion">
+      <soap12:operation soapAction="http://sistemas.sh.qroo.gob.mx/TributanetGuardarContribucion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TributanetConsultarContribucionConcepto">
+      <soap12:operation soapAction="http://sistemas.sh.qroo.gob.mx/TributanetConsultarContribucionConcepto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Cobros">
+    <wsdl:port name="CobrosSoap" binding="tns:CobrosSoap">
+      <soap:address location="http://sistemas.sh.qroo.gob.mx/cobros_ws/cobros.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CobrosSoap12" binding="tns:CobrosSoap12">
+      <soap12:address location="http://sistemas.sh.qroo.gob.mx/cobros_ws/cobros.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

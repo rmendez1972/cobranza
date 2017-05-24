@@ -1,0 +1,374 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/angular.js"></script>
+        
+        <!--<script src="js/angular-strap.js"></script>
+        <script src="js/angular-strap.tpl.js"></script>-->
+        <script src="js/angular-messages.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/angular-animate.js"></script>
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+        <script src="js/moment.min.js"></script>
+    	<script src="Public/app.js"></script>
+	<script src="Public/usuarios/controladores/usuarios_controller.js"></script>
+        <script src="Public/usuarios/servicios/usuarios_services.js"></script>
+        <script src="js/ng-table.js"></script>
+        
+
+        
+        <script type="text/javascript" language="JavaScript" src="js/jquery-1.7.2.js"></script>
+        <link href="stylesheets/animate.css" rel="stylesheet">
+        <!--<link href="stylesheets/style.css" rel="stylesheet">-->
+        <link href="estilos/estilosiframe.css" rel="stylesheet" type="text/css">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="estilos/ng-table.css" rel="stylesheet" type="text/css">
+        <style>
+            
+            .desbanecimiento.ng-leave {
+                -webkit-transition: 1s linear all; /* Safari/Chrome */
+                transition: 3s linear all; /* All other modern browsers and IE10+ */
+
+                /* The animation preparation code */
+                opacity: 1;
+            }
+
+
+            .desbanecimiento.ng-leave.ng-leave-active {
+            /* desbanecimiento */
+                opacity: 0;
+            }    
+
+   
+        </style>
+        
+    </head>
+    <body ng-app="CobranzaApp" ng-controller="usuariosController"  style="background-color: white">
+         
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title"></h3>
+            </div>
+           <div class="modal-body">
+                
+                <h3 class="modal-title">Confirma Eliminación del Usuario {{usuario}} ?</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    
+        
+        <center ng-show="accion=='listar'">
+            
+        <div>
+            
+            <table width="80%" class="tituloDatos" >
+                <tr>
+                    <td width="70%"><h2>Catálogo de Usuarios</h2></td>
+                    <td width="10%" ng-click="nuevo()" style="cursor:pointer">
+                        <a href="#" ><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar"><p>Agregar</p></a>
+                    </td>
+                    <td width="10%" style="cursor:pointer">
+                        <a href="controladorusuarios?operacion=reporte" target="new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Imprimir"/><p>Imprimir</p></a>
+                    </td>
+                </tr>
+            </table>
+           
+            <table ng-table="tableParams"   id="datos" class="tablesorter" width="80%">
+                <thead>
+                    <tr>
+                        <th><a href='#x' ng-click="campo='nombre'; reverse=!reverse">Nombre</a></th>
+                        <th><a href='#x' ng-click="campo='delegacion'; reverse=!reverse">Oficina</a></th>
+                        <th><a href='#x' ng-click="campo='cargo'; reverse=!reverse">Cargo</a></th>
+                        <th><a href='#x' ng-click="campo='nivel'; reverse=!reverse">Nivel Usuario</a></th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr ng-repeat="modulo in modulos | orderBy:campo:reverse" ng-class-odd="'odd'" ng-class-even="'impar'">-->
+                    <tr class="alert" ng-repeat="user in $data | orderBy:campo:reverse" ng-class-odd="'odd'" ng-class-even="'impar' ">
+                        <td >{{user.nombre}}</td>
+                        <td >{{user.delegacion}}</td>
+                        <td >{{user.cargo}}</td>
+                        <td >{{user.nivel}}</td>
+                        <td ><img class="boton_img" src="imagenes/editar.png" width="24" height="24" alt="editar" ng-click='editar(user.id_usuario)'></td>
+                        <td ><img class="boton_img" src="imagenes/eliminar.png" width="16" height="16" alt="Eliminar" ng-click="eliminar(user.id_usuario)"></td>
+                        <!--<td>{{modulo.descripcion}}</td>
+                        <td>{{modulo.direccion}}</td>
+                        <td>{{modulo.delegacion}}</td>
+                        <td><img class="boton_img" src="imagenes/editar.png" width="24" height="24" alt="editar" ng-click='editar(modulo.id_modulo)'></td>
+                        <td><img class="boton_img" src="imagenes/eliminar.png" width="16" height="16" alt="Eliminar" ng-click="eliminar(modulo.id_modulo)"></td>-->
+                    </tr>
+                </tbody>
+                <p class="text-muted"><small>Página: {{tableParams.page()}}</small></p>    
+            </table>
+            
+            
+             <script type="text/ng-template" id="custom/pager">
+                
+                <ul class="pager ng-cloak" style="margin:20px 20%">
+                    
+                    <li ng-repeat="page in pages"
+                        ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                        ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                        <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Anterior</a>
+                        <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Siguiente &raquo;</a>
+                    </li>
+                    
+                </ul>
+                
+            </script>
+             
+            </div>
+           
+            
+            
+        </center>
+    
+        <div ng-show="accion=='nuevo'">
+        
+            
+            <br>
+            <div class="container">
+            <div class="panel panel-default">
+                
+                <div class="panel-heading">Nuevo Usuario de Sistema</div>
+            
+            <div class="panel-body">
+            <form  role="form"  name="nuevoUsuario">
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.nombre.$valid && nuevoUsuario.nombre.$dirty, 'has-error' : nuevoUsuario.nombre.$error.required && nuevoUsuario.nombre.$dirty }">    
+                    <label class="control-label" for="nombre">Nombre Completo</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioNuevo.nombre' name="nombre" placeholder="ingresa la el nombre del User"  tooltip="Ingresa el nombre completo de usuario"  tooltip-trigger="focus" tooltip-placement="right" required autofocus />
+                            <div class="help-block text-danger" ng-show="nuevoUsuario.nombre.$dirty && nuevoUsuario.nombre.$error.required" ng-messages="nuevoUsuario.nombre.$error">
+                                <div  ng-message="required">El Nombre es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.usuario.$valid && nuevoUsuario.usuario.$dirty, 'has-error' : nuevoUsuario.usuario.$error.required && nuevoUsuario.usuario.$dirty }">    
+                    <label class="control-label" for="direccion">Usuario</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioNuevo.usuario' placeholder="ingresa la clave usuario" name="usuario" tooltip="Ingresa la clave usuario"  tooltip-trigger="focus" tooltip-placement="right" required/>
+                            <div class="help-block text-danger" ng-show="nuevoUsuario.usuario.$dirty && nuevoUsuario.usuario.$error.required" ng-messages="nuevoUsuario.usuario.$error">
+                                <div  ng-message="required">La clave Usuario es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.password.$valid && nuevoUsuario.password.$dirty, 'has-error' : nuevoUsuario.password.$error.required && nuevoUsuario.password.$dirty }">    
+                    <label class="control-label" for="password">Contraseña</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioNuevo.password' placeholder="ingresa la contraseña de usuario" name="usuario" tooltip="Ingresa la clave usuario"  tooltip-trigger="focus" tooltip-placement="right" required/>
+                            <div class="help-block text-danger" ng-show="nuevoUsuario.password.$dirty && nuevoUsuario.password.$error.required" ng-messages="nuevoUsuario.password.$error">
+                                <div  ng-message="required">La contraseña de Usuario es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.serie.$valid && nuevoUsuario.serie.$dirty, 'has-error' : nuevoUsuario.serie.$error && nuevoUsuario.serie.$dirty }">    
+                    <label class="control-label" for="serie">Serie de Recibos</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioNuevo.serie' placeholder="ingresa la serie de recibos de usuario" name="serie" tooltip="Ingresa la serie de recibos de usuario"  tooltip-trigger="focus" tooltip-placement="right" />
+                            <div class="help-block text-danger" ng-show="nuevoUsuario.serie.$dirty && nuevoUsuario.serie.$error" ng-messages="nuevoUsuario.serie.$error">
+                                <div  ng-message="required">Error con la serie.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.cargo.$valid && nuevoUsuario.cargo.$dirty, 'has-error' : nuevoUsuario.cargo.$error.required && nuevoUsuario.cargo.$dirty }">    
+                    <label class="control-label" for="cargo">Cargo</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioNuevo.cargo' placeholder="ingresa el cargo de usuario" name="cargo" tooltip="Ingresa el cargo de usuario"  tooltip-trigger="focus" tooltip-placement="right" required/>
+                            <div class="help-block text-danger" ng-show="nuevoUsuario.cargo.$dirty && nuevoUsuario.cargo.$error.required" ng-messages="nuevoUsuario.cargo.$error">
+                                <div  ng-message="required">El cargo de Usuario es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.direccion.$valid && nuevoUsuario.direccion.$dirty, 'has-error' : nuevoUsuario.direccion.$error.required && nuevoUsuario.direccion.$dirty }">    
+                    <label class="control-label" for="direccion">Direccion</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioNuevo.direccion' placeholder="ingresa la direccion usuario" name="direccion" tooltip="Ingresa la direccion de usuario"  tooltip-trigger="focus" tooltip-placement="right" required/>
+                            <div class="help-block text-danger" ng-show="nuevoUsuario.usuario.$dirty && nuevoUsuario.usuario.$error.required" ng-messages="nuevoUsuario.usuario.$error">
+                                <div  ng-message="required">La Direccion es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.delegacion.$valid && nuevoUsuario.delegacion.$dirty, 'has-error' : nuevoUsuario.delegacion.$error.required && nuevoUsuario.delegacion.$dirty }">    
+                    <label class="control-label" for="delegacion">Oficina</label>  
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <select class="form-control" name="delegacion" ng-model='usuarioNuevo.id_delegacion' ng-init='usuarioNuevo.id_delegacion=delegaciones[0].idDelegacion' ng-options="value.idDelegacion as value.descripcion for value in delegaciones" ></select>
+                        </div>
+                    </div>    
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoUsuario.nivel.$valid && nuevoUsuario.nivel.$dirty, 'has-error' : nuevoUsuario.nivel.$error.required && nuevoUsuario.nivel.$dirty }">    
+                    <label class="control-label" for="nivel">Nivel de Usuario</label>  
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <select class="form-control" name="nivel" ng-model='usuarioNuevo.id_nivel' ng-init='usuarioNuevo.id_nivel=niveles[0].id_nivel' ng-options="value.id_nivel as value.descripcion for value in niveles" ></select>
+                        </div>
+                    </div>    
+                </div>
+                
+                <center>
+                    <input type="button" class="btn btn-primary btn-lg" value='Guardar' ng-click="guardarNuevo()"  ng-disabled="nuevoUsuario.$invalid"/>
+                    <input type="button" class="btn btn-primary btn-lg" value='Cancelar' ng-click="accion='listar'" />
+                </center>    
+            </form>    
+            </div>
+            
+            </div>
+            </div>
+            
+       
+    </div>
+    
+    
+    <div ng-show="accion=='editar'">
+        
+            <br>
+            <div class="container">
+            <div class="panel panel-default">
+            <div class="panel-heading">Editar Usuario</div>
+            <div class="panel-body">
+            <form role="form"  name="editarUsuario">
+            
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.nombre.$valid, 'has-error' : editarUsuario.nombre.$error.required && editarUsuario.nombre.$dirty }">    
+                    <label class="control-label" for="nombre">Nombre Completo</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioAct.nombre' name="nombre" placeholder="ingresa el nombre de usuario" tooltip="Ingresa el nombre del usuario"  tooltip-trigger="focus" tooltip-placement="right"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarUsuario.nombre.$error.required" ng-messages="editarUsuario.nombre.$error">
+                                <div  ng-message="required">El nombre es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.usuario.$valid, 'has-error' : editarUsuario.usuario.$error.required && editarUsuario.usuario.$dirty }">    
+                    <label class="control-label" for="usuario">Usuario</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioAct.usuario' name="usuario" placeholder="ingresa la clave usuario" tooltip="Ingresa la clave usuario"  tooltip-trigger="focus" tooltip-placement="right"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarUsuario.usuario.$error.required" ng-messages="editarUsuario.usuario.$error">
+                                <div  ng-message="required">El usuario es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.password.$valid, 'has-error' : editarUsuario.password.$error.required && editarUsuario.password.$dirty }">    
+                    <label class="control-label" for="password">Contraseña</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioAct.password' name="password" placeholder="ingresa la contraseña de usuario" tooltip="Ingresa la clave usuario"  tooltip-trigger="focus" tooltip-placement="right"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarUsuario.password.$error.required" ng-messages="editarUsuario.password.$error">
+                                <div  ng-message="required">La contraseña es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.serie.$valid, 'has-error' : editarUsuario.serie.$error.required && editarUsuario.serie.$dirty }">    
+                    <label class="control-label" for="serie">Serie</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioAct.serie' name="serie" placeholder="ingresa la serie de usuario" tooltip="Ingresa la serie de usuario"  tooltip-trigger="focus" tooltip-placement="right"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarUsuario.serie.$error.required" ng-messages="editarUsuario.serie.$error">
+                                <div  ng-message="required">La serie es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.cargo.$valid, 'has-error' : editarUsuario.cargo.$error.required && editarUsuario.cargo.$dirty }">    
+                    <label class="control-label" for="cargo">Cargo</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioAct.cargo' name="cargo" placeholder="ingresa el cargo usuario" tooltip="Ingresa el cargo de usuario"  tooltip-trigger="focus" tooltip-placement="right"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarUsuario.cargo.$error.required" ng-messages="editarUsuario.cargo.$error">
+                                <div  ng-message="required">El cargo es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.direccion.$valid, 'has-error' : editarUsuario.direccion.$error.required && editarUsuario.direccion.$dirty }">    
+                    <label class="control-label" for="direccion">Dirección</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='usuarioAct.direccion' placeholder="ingresa la direccion" name="direccion" tooltip="Ingresa la dirección del usuario"  tooltip-trigger="focus" tooltip-placement="right"  required/>
+                            <div class="help-block text-danger" ng-show="editarUsuario.direccion.$error.required" ng-messages="editarUsuario.direccion.$error">
+                                <div  ng-message="required">La Dirección es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.delegacion.$valid, 'has-error' : editarUsuario.delegacion.$error.required && editarUsuario.delegacion.$dirty }">    
+                    <label class="control-label" for="delegacion">Oficina</label>  
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <select class="form-control" name="delegacion" ng-model='usuarioAct.id_del' ng-init='usuarioAct.id_del=delegaciones[0].idDelegacion' ng-options="value.idDelegacion as value.descripcion for value in delegaciones" ></select>
+                        </div>
+                    </div>    
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarUsuario.nivel.$valid, 'has-error' : editarUsuario.nivel.$error.required && editarUsuario.nivel.$dirty }">    
+                    <label class="control-label" for="nivel">Nivel de Usuario</label>  
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <select class="form-control" name="nivel" ng-model='usuarioAct.id_nivel' ng-init='usuarioAct.id_nivel=niveles[0].id_nivel' ng-options="value.id_nivel as value.descripcion for value in niveles" ></select>
+                        </div>
+                    </div>    
+                </div>
+                
+                <center>
+                    <input type="button" class="btn btn-primary btn-lg" value='Guardar' ng-click="guardarEdit()"  ng-disabled="editarUsuario.$invalid"/>
+                    <input type="button" class="btn btn-primary btn-lg" value='Cancelar' ng-click="accion='listar'" />
+                    
+                </center>
+            </form>
+            </div>
+            </div>
+            </div>
+        
+    </div>
+    
+    
+    <alert class="desbanecimiento" ng-show="usuarioNuevo.alert==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <alert class="desbanecimiento" ng-show="editarUsuario.alert==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <!--<alert class="desbanecimiento" ng-show="selected==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>-->
+    
+    
+    
+    
+    </body>
+</html>

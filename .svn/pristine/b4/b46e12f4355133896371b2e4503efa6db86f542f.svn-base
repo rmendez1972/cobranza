@@ -1,0 +1,33 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sistema de Cobranza</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <br>
+        
+    <center>
+        <br/><br/>
+        = CATALOGOS A UTILIZAR =
+        <hr>
+        <br>
+        <!--<a href="controladorcpp?operacion=capturar">-->
+        <a href="inicio.html">
+        CPP
+        </a><br/><br/>
+        <!--<a href="controladorcpp?operacion=listar">-->
+        <a href="controladorcpp?operacion=listar">
+        Salarios Mínimos
+        </a>
+     </center>
+
+    <hr>
+    
+    
+    </body>
+</html>

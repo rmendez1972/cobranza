@@ -1,0 +1,271 @@
+/* 
+    Document   : estilosiframe
+    Created on : 24/10/2012, 11:12:32 AM
+    Author     : Rafael Mendez
+    Description: Estilos utilizados dentro del iframe principal
+        
+*/
+
+
+
+
+/* clases relativas a las vistas (formulario y listados) */
+
+/* clase para definir un estilo para la cajas en formularios input type text*/
+.cajaPequena {
+	background-color:#aaa;
+	font:8pt helvetica;	
+	color:#000;
+	/*width:75px;*/
+	border-color:#696969;	
+	border-style :solid;
+	border-width :2px;
+	height:13pt;
+        text-transform: uppercase; 
+                    
+}
+.tituloDatos h2{
+      font:  25px Tahoma, Helvetica, Arial, Sans-Serif ;
+      
+      padding-left: 10px;
+}
+
+
+.tituloDatos {
+                /*background: #333333;*/
+                background-color: #fff;
+                /*background-color: rgba(0, 128, 0, 0.8);*/
+                /*opacity: 0.8;*/
+                font: 14px Helvetica, Arial, Sans-Serif;
+                /*border: 1px solid #014400;*/
+                border-radius: 6px;
+                -moz-border-radius: 6px;
+                -webkit-border-radius: 6px;
+                box-shadow: 0 0 10px #014400;/*verde oficial*/
+                margin: auto;
+                margin-top: 20px;
+               padding: 10px;
+               padding: 40px;
+        
+
+            }
+            
+            
+
+#datos {
+                /*background: #333333;*/
+                background-color: #fff;
+                /*background-color: rgba(0, 128, 0, 0.8);*/
+                /*opacity: 0.8;*/
+                font: 12px Helvetica, Arial, Sans-Serif;
+                /*border: 1px solid #014400;*/
+                border-radius:6px;
+                -moz-border-radius: 6px;
+                -webkit-border-radius: 6px;
+                box-shadow: 0 0 10px #014400;/*verde oficial*/
+                /*margin: auto;*/
+               margin-top: 10px;
+ 
+}
+
+            
+            
+            
+            
+            
+            iframe {
+                overflow: hidden !important;
+            }            
+            
+            
+            
+            
+            
+            
+            
+.datos table button:active{
+                background: #2a2828; /* Old browsers */
+                background: -moz-linear-gradient(top,  #2a2828 0%, #3c3c3c 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a2828), color-stop(100%,#3c3c3c)); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top,  #2a2828 0%,#3c3c3c 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top,  #2a2828 0%,#3c3c3c 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(top,  #2a2828 0%,#3c3c3c 100%); /* IE10+ */
+                background: linear-gradient(to bottom,  #2a2828 0%,#3c3c3c 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2828', endColorstr='#3c3c3c',GradientType=0 ); /* IE6-9 */
+
+            }
+
+
+
+/* clase para definir un estilo homologado para los botones en formularios */
+.boton_fb {
+    background-color: #fff;
+    border-color: #CCCCCC rgb(14, 31, 91) rgb(14, 31, 91) rgb(216, 223, 234);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px 10px 10px 10px; 
+    color: #000000;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    font-size: 14px;
+    margin: 0 2px;
+    padding: 2px 18px;
+}
+
+/* clase de los formularios para madar los mensajes de las reglas de validacion en el plug in validate de jquery*/
+form.catalogo label.error, label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	font-style: italic;
+        font-size: 15px; 
+}
+
+/*estilos del evento focus y evento error en la validacion con el plug in validate de jquery */
+input:focus { border: 1px dotted black; }
+input.error { border: 1px dotted red; }
+
+/* clase para definir un tamaño de fuente a usar en los formularios */
+.fuente8 {
+	font:8pt helvetica;		
+}
+
+
+
+/* estilos para el plug in tablesorter de jquery */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	/* width: 80%; */
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(../imagenes/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../imagenes/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../imagenes/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+
+/* quitamos el subrayado de todos los hipervinculos */
+A {text-decoration: none;}
+
+/* quitamos el borde a las imagenes en IE */
+
+img { border: 0; }
+/*
+
+    Zebra_DatePicker: a lightweight jQuery date picker plugin
+
+    default stylesheet
+    copyright (c) 2011 - 2012 Stefan Gabos
+    http://stefangabos.ro/jquery/zebra-datepicker/
+
+*/
+
+.Zebra_DatePicker *                          { margin: 0; padding: 0; color: #000 }
+.Zebra_DatePicker                            { position: absolute; background: #666; border: 3px solid #666; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; display: none; z-index: 100; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 13px }
+
+/* = GLOBALS
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker table                      { border-collapse: collapse; border-spacing: 0 }
+
+.Zebra_DatePicker td,
+.Zebra_DatePicker th                         { text-align: center; padding: 5px 0 }
+
+.Zebra_DatePicker td                         { cursor: pointer }
+
+.Zebra_DatePicker .dp_daypicker,
+.Zebra_DatePicker .dp_monthpicker,
+.Zebra_DatePicker .dp_yearpicker             { margin-top: 3px }
+
+.Zebra_DatePicker .dp_daypicker td,
+.Zebra_DatePicker .dp_daypicker th,
+.Zebra_DatePicker .dp_monthpicker td,
+.Zebra_DatePicker .dp_yearpicker td         { background: #E8E8E8; width: 30px; border: 1px solid #7BACD2 }
+
+/* = HEADER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_header td             { color: #FFF }
+
+.Zebra_DatePicker .dp_header .dp_previous,
+.Zebra_DatePicker .dp_header .dp_next       { width: 30px }
+
+.Zebra_DatePicker .dp_header .dp_caption    { font-weight: bold }
+.Zebra_DatePicker .dp_header .dp_hover      { background: #222; color: #FFF; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px }
+.Zebra_DatePicker .dp_header .dp_blocked    { color: #888; cursor: default }
+
+/* = DATEPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_daypicker th          { background: #FFCC33 }
+.Zebra_DatePicker td.dp_not_in_month        { background: #F3F3F3; color: #CDCDCD; cursor: default }
+.Zebra_DatePicker td.dp_weekend             { background: #D8D8D8 }
+.Zebra_DatePicker td.dp_weekend_disabled    { color: #CCC; cursor: default }
+.Zebra_DatePicker td.dp_selected            { background: #5A4B4B; color: #FFF !important }
+.Zebra_DatePicker td.dp_week_number         { background: #FFCC33; color: #555; cursor: text; font-style: italic }
+
+/* = MONTHPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_monthpicker td        { width: 33% }
+
+/* = YEARPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_yearpicker td         { width: 33% }
+
+/* = FOOTER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_footer                { margin-top: 3px }
+.Zebra_DatePicker .dp_footer td             { color: #FFF; padding: 2px; font-weight: bold }
+.Zebra_DatePicker .dp_footer .dp_hover      { background: #222; color: #FFF; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px }
+
+/* = SOME MORE GLOBALS (MUST BE LAST IN ORDER TO OVERWRITE PREVIOUS PROPERTIES)
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker td.dp_current             { color: #C40000 }
+.Zebra_DatePicker td.dp_disabled_current    { color: #E38585 }
+.Zebra_DatePicker td.dp_disabled            { background: #F3F3F3; color: #CDCDCD; cursor: default }
+.Zebra_DatePicker td.dp_hover               { background: #482424; color: #FFF }
+
+/* = ICON
+----------------------------------------------------------------------------------------------------------------------*/
+button.Zebra_DatePicker_Icon                { position: absolute; width: 16px; height: 16px; background: url('../imagenes/calendar.png') no-repeat left top; text-indent: -9000px; border: none; cursor: pointer; margin: 0 0 0 5px; padding: 0; line-height: 0 }
+button.Zebra_DatePicker_Icon_Disabled       { background-image: url('../imagenes/calendar-disable.png') }
+button.Zebra_DatePicker_Icon_Inside         { margin: 0 3px 0 0 }
+
+/* Fix icon position in Chrome & Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    button.Zebra_DatePicker_Icon_Inside     { margin: 0 5px 0 0 }
+}
+
+
+fieldset{
+border-radius: 5px;
+padding: 5px; /*Just to prevent the content from being to close to the corner*/
+}
+
+.boton_img{
+    cursor: pointer;
+}

@@ -1,0 +1,213 @@
+@charset "utf-8";
+/* CSS Document */
+/*
+Proyecto: 	Sistemas de cuentas por Cobrar
+Empresa: 	Instituto de fomento a la Vivienda y Regularización de la Propiedad del Gob. del Edo. INFOVIR
+Autor: 		Téc. Ismael García Hernández
+Fecha: 		28-08-2012.
+Modificado:	05-09-2012.
+*/
+
+body {/*Aplicando formato al cuerpo de la página */
+	background-image: url(../imagenes/fondo.jpg);
+	/*background-color:#EBEBEB;*/
+        background-color:#ffffff;
+	border-radius:10px 10px 10px 10px;
+	box-shadow: 2px 4px 4px 2px #666;
+	width: 900px;
+	margin-top: 0px;margin-right: auto;margin-bottom: 10px;margin-left: auto;
+}
+header{
+        height: 50px;	width: 100%;
+        background-image: url(../imagenes/header.png);   
+	margin:0;
+        background-color:#ffffff;
+	/*background: #222;*/
+	font-size: 22px;
+	color: #999;
+	text-shadow: 0px 2px 3px #171717;
+	-webkit-box-shadow: 0px 2px 3px #555;
+	-moz-box-shadow: 0px 2px 3px #555;
+	/*-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;*/
+	border-radius:10px 10px 0px 0px;
+	text-align: center;
+	}
+	
+	
+	/*header{
+	/*background-color:#FF0;
+	/*background-image:url(../../../../fondo1.gif);
+	background-color: #474747;
+	float: left;
+	width:100%;
+	height:60px;
+	border-radius:10px 10px 0px 0px;
+	font-size: 22px; color: #555; text-shadow: 0px 2px 3px #171717;
+	
+}*/
+
+nav{
+	/*background-color:#eee;*/
+	background-color:#EBEBEB;
+	float: left;
+	width: 100%;
+	height:45px;
+	padding:0;
+	/*border-bottom-width: medium;
+	border-bottom-style: solid;
+	border-bottom-color: #999;
+	*/
+	
+}
+
+section{
+	/*background-color:#D6D6D6;*/
+	/*background-color:#EBEBEB;*/
+        background-color:#ffffff;
+	width: 100%;
+	/*height: 600px;*/
+	float: left;
+}
+
+footer{
+	/*height: 150px;*/	width: 100%;
+	border-radius:0px 0px 10px 10px;
+	clear: left;
+	margin-bottom: 5px;
+        padding-bottom: 10px;
+        /*background-image: url(../imagenes/footer.png);*/
+        /*background-color:#ffffff;*/
+        background-color:#014400;
+        color: #ffffff;
+        font-size: 11px;
+        font: 14px Tahoma, Helvetica, Arial, Sans-Serif;
+        
+		}
+                footer a{color: #fff;
+                    
+                }
+.footerimagen{
+	height: 75px;	width: 100%;
+	/*border-radius:0px 0px 10px 10px;*/
+	clear: left;
+	
+        background-image: url(../imagenes/footer3.png);
+        background-color:#ffffff;
+        background-color:#014400;
+        
+		}
+.footerarea{clear: left;        background-color:#014400;}
+
+
+                
+                
+
+
+/*body:before {/* Efecto de sombra parte de arriba de nuestra hoja 
+	content: "";position: fixed;top:-10px;left:0;width:100%;height: 10px;
+	-webkit-box-shadow: 1px 1px 10px rgba(0,0,0,.8);
+	-moz-box-shadow:	1px 1px 10px rgba(0,0,0,.8);
+	-o-box-shadow: 		1px 1px 10px rgba(0,0,0,.8);
+	-ms-box-shadow: 	1px 1px 10px rgba(0,0,0,.8);
+	box-shadow: 		1px 1px 10px rgba(0,0,0,.8);
+	z-index: 			100;
+}
+*/
+/*#contenedor {/* Div que contendra toda la pagina 
+	width:850px;
+	background-color: #D6D6D6;
+	box-shadow: 3px 3px 3px 1px #666;
+	clip: rect(0px,auto,auto,auto);
+	padding: 0px;
+	/*border-radius:0px 0px 20px 20px;
+	border: thin solid #000;
+	margin: auto;
+	height: 802px;
+	margin-bottom:10px;
+	
+}
+*/
+
+.degradado{ /* Degradado azul*/
+	background: rgb(109,179,242); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(109,179,242,1) 0%, rgba(84,163,238,1) 50%, rgba(54,144,240,1) 77%, rgba(30,105,222,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(109,179,242,1)), color-stop(50%,rgba(84,163,238,1)), color-stop(77%,rgba(54,144,240,1)), color-stop(100%,rgba(30,105,222,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 77%,rgba(30,105,222,1) 100%); /* Chrome10+,Safari5.1+ */
+	
+	background: -o-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 77%,rgba(30,105,222,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 77%,rgba(30,105,222,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 77%,rgba(30,105,222,1) 100%); /* W3C */
+
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 );  /*IE6-9 */
+	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccc', endColorstr='#333',GradientType=0 ); /* IE6-9 */
+	margin:auto;
+	text-align: left;
+}
+
+.degradado1{/* Degradado gris a negro*/
+background: rgb(125,126,125); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(125,126,125,1) 20%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(20%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(125,126,125,1) 20%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(125,126,125,1) 20%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(125,126,125,1) 20%,rgba(14,14,14,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(125,126,125,1) 20%,rgba(14,14,14,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+
+
+#barralateral{
+	background-color:#D6D6D6;
+	width:135px;
+	border: 1px solid #333;
+	padding: 3px;
+	text-align: center;
+	margin-top: 3px;
+	height: 587px;
+	box-shadow: 3px 3px 3px #333;
+	float: left;
+}
+#firma {
+	position: fixed;
+	bottom:0px;
+	width: 100%;
+	font-size: small;
+}
+
+
+#contenido{
+	height: 600px;
+	text-decoration: none;
+	margin-top: 3px;
+	width: 100%;
+	padding: 0px;
+	float: right;
+	left: 194px;
+	/*top: -55px;*/
+}
+
+.rounded{ /* Estilo para redondear borders*/
+	border-radius:20px;
+	-moz-border-radius:7px; /* //Firefox*/
+	-webkit-border-radius:7px; /*//Safari y navegadores que usen WebKit*/
+}
+
+pre {
+	margin: 0;
+	background: #222;
+	font-size: 18px;
+	color: #999;
+	text-shadow: 0px 2px 3px #171717;
+	-webkit-box-shadow: 0px 2px 3px #555;
+	-moz-box-shadow: 0px 2px 3px #555;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	text-align: center;
+	border-radius:10px 10px 0px 0px;
+}
+

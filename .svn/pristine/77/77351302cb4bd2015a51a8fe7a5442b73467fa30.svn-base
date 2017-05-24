@@ -1,0 +1,219 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/angular.js"></script>
+        <!--<script src="js/angular-strap.js"></script>
+        <script src="js/angular-strap.tpl.js"></script>-->
+        <script src="js/angular-messages.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/angular-animate.js"></script>
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+        <script src="js/moment.min.js"></script>
+    	<script src="js/controladores/app.js"></script>
+	<script src="js/controladores/modulos_controller.js"></script>
+        <script src="js/controladores/modulos_services.js"></script>
+        <script src="js/ng-table.js"></script>
+        
+
+        
+        <script type="text/javascript" language="JavaScript" src="js/jquery-1.7.2.js"></script>
+        <link href="stylesheets/animate.css" rel="stylesheet">
+        <!--<link href="stylesheets/style.css" rel="stylesheet">-->
+        <link href="estilos/estilosiframe.css" rel="stylesheet" type="text/css">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="estilos/ng-table.css" rel="stylesheet" type="text/css">
+                
+    </head>
+    <body ng-app="CobranzaApp" ng-controller="modulosController"  style="background-color: white">
+         
+        <script type="text/ng-template" id="myModalContent.html">
+            <!--<div class="modal-header">
+                <h3 class="modal-title">Mensaje</h3>
+            </div>-->
+           <div class="modal-body">
+                <!--<ul>
+                    <li ng-repeat="item in items">
+                        <a ng-click="selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>-->
+                <h3 class="modal-title">Confirma Eliminación ?</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    
+        
+        <center ng-show="accion=='listar'">
+            
+        <div>
+            
+            <table width="80%" class="tituloDatos" >
+                <tr>
+                    <td width="80%"><h2>Catálogo de módulos de recaudación</h2></td>
+                    <td ng-click="nuevo()" style="cursor:pointer">
+                        <img src="imagenes/capturar.png" width="24" height="24" alt="Capturar">Agregar
+                    </td>
+                </tr>
+            </table>
+           
+            
+            <table ng-table="tableParams"  id="datos" class="tablesorter" width="80%">
+                <thead>
+                    <tr>
+                        <th><a href='#x' ng-click="campo='descripcion'; reverse=!reverse">Descripción</a></th>
+                        <th><a href='#x' ng-click="campo='direccion'; reverse=!reverse">Dirección</a></th>
+                        <th><a href='#x' ng-click="campo='delegacion'; reverse=!reverse">Delegación</a></th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr ng-repeat="modulo in modulos | orderBy:campo:reverse" ng-class-odd="'odd'" ng-class-even="'impar'">-->
+                    <tr ng-repeat="modulo in $data | orderBy:campo:reverse" ng-class-odd="'odd'" ng-class-even="'impar' ">
+                        <td >{{modulo.descripcion}}</td>
+                        <td >{{modulo.direccion}}</td>
+                        <td >{{modulo.delegacion}}</td>
+                        <td ><img class="boton_img" src="imagenes/editar.png" width="24" height="24" alt="editar" ng-click='editar(modulo.id_modulo)'></td>
+                        <td ><img class="boton_img" src="imagenes/eliminar.png" width="16" height="16" alt="Eliminar" ng-click="eliminar(modulo.id_modulo)"></td>
+                        <!--<td>{{modulo.descripcion}}</td>
+                        <td>{{modulo.direccion}}</td>
+                        <td>{{modulo.delegacion}}</td>
+                        <td><img class="boton_img" src="imagenes/editar.png" width="24" height="24" alt="editar" ng-click='editar(modulo.id_modulo)'></td>
+                        <td><img class="boton_img" src="imagenes/eliminar.png" width="16" height="16" alt="Eliminar" ng-click="eliminar(modulo.id_modulo)"></td>-->
+                    </tr>
+                </tbody>
+            </table>
+             
+            </div>
+           
+            
+            
+        </center>
+    
+    <div ng-show="accion=='nuevo'">
+        
+            
+            <br>
+            <div class="container">
+            <div class="panel panel-default">
+                
+                <div class="panel-heading">Nuevo módulo de recaudación</div>
+            
+            <div class="panel-body">
+            <form  role="form"  name="nuevoModulo">
+                <div class="form-group" ng-class="{ 'has-success' : nuevoModulo.descripcion.$valid && nuevoModulo.descripcion.$dirty, 'has-error' : nuevoModulo.descripcion.$error.required && nuevoModulo.descripcion.$dirty }">    
+                    <label class="control-label" for="descripcion">Descripcion</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='moduloNuevo.descripcion' name="descripcion" placeholder="ingresa la descripcion"  tooltip="Ingresa la descripción del módulo"  tooltip-trigger="focus" tooltip-placement="right" required autofocus />
+                            <div class="help-block text-danger" ng-show="nuevoModulo.descripcion.$dirty && nuevoModulo.descripcion.$error.required" ng-messages="nuevoModulo.descripcion.$error">
+                                <div  ng-message="required">La Descripción es obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoModulo.direccion.$valid && nuevoModulo.direccion.$dirty, 'has-error' : nuevoModulo.direccion.$error.required && nuevoModulo.direccion.$dirty }">    
+                    <label class="control-label" for="direccion">Dirección</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='moduloNuevo.direccion' placeholder="ingresa la direccion" name="direccion" tooltip="Ingresa la dirección del módulo"  tooltip-trigger="focus" tooltip-placement="right" required/>
+                            <div class="help-block text-danger" ng-show="nuevoModulo.direccion.$dirty && nuevoModulo.direccion.$error.required" ng-messages="nuevoModulo.direccion.$error">
+                                <div  ng-message="required">La Dirección es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevoModulo.delegacion.$valid && nuevoModulo.delegacion.$dirty, 'has-error' : nuevoModulo.delegacion.$error.required && nuevoModulo.delegacion.$dirty }">    
+                    <label class="control-label" for="delegacion">Oficina</label>  
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <select class="form-control" name="delegacion" ng-model='moduloNuevo.id_delegacion' ng-init='moduloNuevo.id_delegacion=delegaciones[0].idDelegacion' ng-options="value.idDelegacion as value.descripcion for value in delegaciones" ></select>
+                        </div>
+                    </div>    
+                </div>
+                <center>
+                    <input type="button" class="btn btn-primary btn-lg" value='Guardar' ng-click="guardarNuevo()"  ng-disabled="nuevoModulo.$invalid"/>
+                    <input type="button" class="btn btn-primary btn-lg" value='Cancelar' ng-click="accion='listar'" />
+                </center>    
+            </form>    
+            </div>
+            
+            </div>
+            </div>
+            
+       
+    </div>
+    
+    
+    <div ng-show="accion=='editar'">
+        
+            <br>
+            <div class="container">
+            <div class="panel panel-default">
+            <div class="panel-heading">Editar módulo de recaudación</div>
+            <div class="panel-body">
+            <form role="form"  name="editarModulo">
+            
+                <div class="form-group" ng-class="{ 'has-success' : editarModulo.descripcion.$valid, 'has-error' : editarModulo.descripcion.$error.required && editarModulo.descripcion.$dirty }">    
+                    <label class="control-label" for="descripcion">Descripcion</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='moduloAct.descripcion' name="descripcion" placeholder="ingresa la descripcion" tooltip="Ingresa la descripción del módulo"  tooltip-trigger="focus" tooltip-placement="right"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarModulo.descripcion.$error.required" ng-messages="editarModulo.descripcion.$error">
+                                <div  ng-message="required">La Descripción es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarModulo.direccion.$valid, 'has-error' : editarModulo.direccion.$error.required && editarModulo.direccion.$dirty }">    
+                    <label class="control-label" for="direccion">Dirección</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='moduloAct.direccion' placeholder="ingresa la direccion" name="direccion" tooltip="Ingresa la dirección del módulo"  tooltip-trigger="focus" tooltip-placement="right"  required/>
+                            <div class="help-block text-danger" ng-show="editarModulo.direccion.$error.required" ng-messages="editarModulo.direccion.$error">
+                                <div  ng-message="required">La Dirección es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarModulo.delegacion.$valid, 'has-error' : editarModulo.delegacion.$error.required && editarModulo.delegacion.$dirty }">    
+                    <label class="control-label" for="delegacion">Oficina</label>  
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <select class="form-control" name="delegacion" ng-model='moduloAct.id_delegacion' ng-init='moduloAct.id_delegacion=delegaciones[0].idDelegacion' ng-options="value.idDelegacion as value.descripcion for value in delegaciones" ></select>
+                        </div>
+                    </div>    
+                </div>
+                <center>
+                    <input type="button" class="btn btn-primary btn-lg" value='Guardar' ng-click="guardarEdit()"  ng-disabled="editarModulo.$invalid"/>
+                    <input type="button" class="btn btn-primary btn-lg" value='Cancelar' ng-click="accion='listar'" />
+                    
+                </center>
+            </form>
+            </div>
+            </div>
+            </div>
+        
+    </div>   
+    <alert ng-show="moduloNuevo.alert==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <alert ng-show="editarModulo.alert==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <alert ng-show="selected==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    
+    
+    
+    
+    </body>
+</html>

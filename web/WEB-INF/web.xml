@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>Controladorcpp</servlet-name>
+        <servlet-class>controladores.Controladorcpp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controladorcpp</servlet-name>
+        <url-pattern>/controladorcpp</url-pattern>
+    </servlet-mapping>
+    
+      
+    <servlet>
+        <servlet-name>Controladorsalmin</servlet-name>
+        <servlet-class>controladores.Controladorsalmin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controladorsalmin</servlet-name>
+        <url-pattern>/controladorsalmin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Controladorclavemov</servlet-name>
+        <servlet-class>controladores.Controladorclavemov</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controladorclavemov</servlet-name>
+        <url-pattern>/controladorclavemov</url-pattern>
+    </servlet-mapping>
+            
+    <resource-ref>
+        <res-ref-name>jdbc/cobranza</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    
+    <welcome-file-list>
+        <welcome-file>intro.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -1,0 +1,239 @@
+angular.module('CobranzaApp.controllers', []).
+controller('modulosController', function($scope,  $modal, $log,  ngTableParams, servicioCobranza) {
+    
+    
+    
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+    var data=null;
+    $scope.modulos=[];
+    $scope.alerts=[];
+    $scope.campo="-descripcion";
+    $scope.accion="listar";
+    $scope.moduloNuevo=null;
+    $scope.moduloAct=null;
+    $scope.editarModulo=null;
+    $scope.eliminarModulo=null;
+    
+    
+    
+
+    
+    
+    servicioCobranza.getModulos().success(function (response) {
+        $scope.modulos = response;
+        $scope.selected=false;
+        data=response;
+       
+        $scope.tableParams = new ngTableParams({
+            page: 1,            // show first page
+            count: 10           // count per page
+        }, 
+        {
+            total: data.length, // length of data
+            getData: function($defer, params) {
+            $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+        
+    });
+    
+    
+    
+    
+    servicioCobranza.obtenerDelegaciones().success(function (response){
+       $scope.delegaciones=response;
+       $scope.selected=false;
+    });
+
+    $scope.nuevo=function(){
+        $scope.alerts = [];
+        $scope.selected=false;
+        $scope.moduloNuevo=new Object();
+        $scope.moduloNuevo.id_delegacion=1;
+        $scope.moduloNuevo.alert=false;
+        $scope.accion='nuevo';
+        $scope.nuevoModulo.$setPristine();
+        data=null;
+    }
+
+    $scope.guardarNuevo=function(){
+        $scope.alerts = [];
+        $scope.selected=false;
+        servicioCobranza.guardarNuevo($scope.moduloNuevo).success(function(response){
+            if(response=="true"){
+                //alert("Datos guardados");
+                data=null;
+                $scope.moduloNuevo.alert=true;
+                $scope.editarModulo.alert=false;
+                $scope.alerts.push({type: 'success', msg: 'Datos Grabados exitosamente!'});
+                $scope.selected=false;
+                
+                servicioCobranza.getModulos().success(function (response) {
+                        $scope.modulos = response;
+                        data=response;
+       
+                        $scope.tableParams = new ngTableParams({
+                            page: 1,            // show first page
+                            count: 10           // count per page
+                        }, 
+                        {
+                            total: data.length, // length of data
+                            getData: function($defer, params) {
+                                $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        });
+                    });
+                $scope.accion="listar";
+            }
+             else{
+                //alert("Error al guardar los datos");
+                $scope.moduloNuevo.alert=true;
+                $scope.editarModulo.alert=false;
+                $scope.alerts.push({type: 'danger', msg: 'Error al grabar los datos!'});
+                $scope.selected=false;
+            }
+        });
+    }
+
+    $scope.guardarEdit=function(){
+        $scope.alerts = [];
+        $scope.selected=false;
+        data=null;
+        servicioCobranza.guardarEdit($scope.moduloAct).success(function(response){
+            if(response=="true"){
+                //alert("Datos guardados");
+                $scope.editarModulo.alert=true;
+                $scope.moduloNuevo.alert=false;
+                $scope.alerts.push({type: 'success', msg: 'Datos actualizados exitosamente!'});
+                $scope.selected=false;
+                servicioCobranza.getModulos().success(function (response) {
+                        $scope.modulos = response;
+                        data=response;
+       
+                        $scope.tableParams = new ngTableParams({
+                            page: 1,            // show first page
+                            count: 10           // count per page
+                        }, 
+                        {
+                            total: data.length, // length of data
+                            getData: function($defer, params) {
+                                $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        });
+                    });
+                $scope.accion="listar";
+            }
+            else{
+                //alert("Error al guardar los datos");
+                $scope.editarModulo.alert=true;
+                $scope.moduloNuevo.alert=false;
+                $scope.alerts.push({type: 'danger', msg: 'Error al grabar los datos!'});
+                $scope.selected=false;
+                
+            }
+        });
+    }
+
+    $scope.editar=function(id_modulo){
+            
+            $scope.alerts = [];
+            $scope.selected=false;
+            servicioCobranza.getOne(id_modulo).success(function(response){
+            $scope.moduloAct=response;
+            $scope.accion="editar";
+            $scope.editarModulo.$setPristine();
+            $scope.editarModulo.alert=false;
+            $scope.moduloNuevo.alert=false;
+            
+        });
+    }
+
+    
+    
+    $scope.eliminar=function(id_modulo){
+      $scope.alerts = [];  
+      $scope.alerts.push({type: 'success', msg: 'Modulo eliminado exitosamente!'});
+      $scope.selected=false;
+      $scope.editarModulo.alert=false;
+      $scope.moduloNuevo.alert=false;
+      
+      
+      
+      var modalInstance = $modal.open({
+        templateUrl: 'myModalContent.html',
+        controller: 'ModalInstanceCtrl as ic',
+        size: 'sm',
+        resolve: {
+            eliminarModulo: function () {
+                return $scope.eliminarModulo;
+                               }
+                 }
+      });
+    
+    modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+        
+        
+        if($scope.selected==true){
+            
+            servicioCobranza.eliminarModulo(id_modulo).success(function(response){
+                if(response=="true"){
+                    servicioCobranza.getModulos().success(function (response) {
+                        $scope.modulos = response;
+                        data=response;
+
+                        $scope.tableParams = new ngTableParams({
+                            page: 1,            // show first page
+                            count: 10           // count per page
+                        }, 
+                        {
+                            total: data.length, // length of data
+                            getData: function($defer, params) {
+                                $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        });
+                    
+                    
+                    });
+                    $scope.accion="listar";
+                    
+                }
+                else{
+                    //alert("Error al eliminar");
+                    
+                }
+            });
+        }
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+         
+        
+    }
+    
+    
+});
+
+
+
+angular.module('CobranzaApp.controllers').controller('ModalInstanceCtrl', function ( $scope, $modalInstance, eliminarModulo) {
+
+  $scope.selected=false;
+  $scope.ok = function () {
+    $scope.selected=true;  
+    $modalInstance.close($scope.selected);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+
+angular.module('CobranzaApp.controllers').controller('OtherController', function ( $scope) {
+  $scope.pageChangeHandler = function(num) {
+    console.log('going to page ' + num);
+  };
+});

@@ -1,0 +1,312 @@
+angular.module('CobranzaApp.controllers', []).
+controller('usuariosController', function($scope,  $modal, $log, $timeout,  ngTableParams, servicioCobranza) {
+    
+    
+    //metodo que cierra el alert
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+    
+    
+    var data=null;
+    $scope.usuarios=[]; //vector de json's
+    $scope.campo="-delegacion";
+    $scope.accion="listar";
+    $scope.usuarioNuevo=null;
+    $scope.usuarioAct=null;
+    $scope.editarUsuario=null;
+    $scope.eliminarUsuario=null;
+    
+    
+    
+
+    
+    
+    servicioCobranza.getUsuarios().success(function (response) {
+        
+        $scope.usuarios = response;
+        $scope.selected=false;
+        data=response; //variable que contiene el arreglo de json´s, que van a ser cortados para la paginación
+        console.log(data);
+        $scope.tableParams = new ngTableParams({
+            page: 1,            // show first page
+            count: 10           // count per page
+        }, 
+        {
+            
+            total: data.length, // length of data
+            getData: function($defer, params) {
+             params.settings({ counts: data.length > 10 ? [10,20] : [10,20]});    
+            $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+        
+    });
+    
+    
+    
+    
+    servicioCobranza.obtenerDelegaciones().success(function (response){
+       $scope.delegaciones=response;
+       $scope.selected=false;
+    });
+    
+    servicioCobranza.obtenerNiveles().success(function (response){
+       $scope.niveles=response;
+       $scope.selected=false;
+    });
+
+    $scope.nuevo=function(){
+        $scope.alerts = [];
+        $scope.selected=false;
+        $scope.usuarioNuevo=new Object();
+        $scope.editarUsuario=new Object();
+        $scope.usuarioNuevo.id_delegacion=1;
+        $scope.usuarioNuevo.id_nivel=1;
+        $scope.usuarioNuevo.alert=false;
+        $scope.accion='nuevo';
+        $scope.nuevoUsuario.$setPristine();
+        var data=null;
+        console.log($scope.niveles);
+    }
+
+    $scope.guardarNuevo=function(){
+        
+        $scope.alerts = [];
+        $scope.selected=false;
+        console.log($scope.usuarioNuevo);
+        servicioCobranza.guardarNuevo($scope.usuarioNuevo).success(function(response){
+        console.log(response);    
+            if(response=="true"){
+                
+                var data=null;
+                $scope.usuarioNuevo.alert=true;
+                $scope.editarUsuario.alert=false;
+                $scope.alerts.push({type: 'success', msg: 'Datos Grabados exitosamente al agregar nuevo Usuario!'});
+                //metodo que cierra en automatico el alert recientemente ingresado al vector alerts
+                $timeout(function()
+                {
+                    $scope.alerts.splice($scope.alerts.indexOf({type: 'success', msg: 'Datos Grabados exitosamente!'}), 1);
+                }, 3000);
+                $scope.selected=true;
+                $scope.accion="listar";
+                $scope.usuarios=[];
+                servicioCobranza.getUsuarios().success(function (response) {
+                    
+                    $scope.usuarios = response;
+                    $scope.selected=false;
+                    data=response; //variable que contiene el arreglo de json´s, que van a ser cortados para la paginación
+                    $scope.tableParams=null;
+                    $scope.tableParams = new ngTableParams({
+                        page: 1,            // show first page
+                        count: 10           // count per page
+                    }, 
+                    {
+
+                        total: data.length, // length of data
+                        getData: function($defer, params) {
+                        params.settings({ counts: data.length > 1 ? [10,20] : [10,20]});    
+                        $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        }
+                    });
+
+                });
+                
+            }
+             else{
+                
+                $scope.usuarioNuevo.alert=true;
+                $scope.editarUsuario.alert=false;
+                $scope.alerts.push({type: 'danger', msg: 'Error al grabar los datos!'});
+                //metodo que cierra en automatico el alert recientemente ingresado al vector alerts
+                $timeout(function()
+                {
+                    $scope.alerts.splice($scope.alerts.indexOf({type: 'danger', msg: 'Error al grabar los datos!'}), 1);
+                }, 3000);
+                $scope.selected=false;
+            }
+        });
+    }
+
+    $scope.guardarEdit=function(){
+        $scope.alerts = [];
+        $scope.selected=false;
+        data=null;
+        
+        console.log($scope.usuarioAct);
+        servicioCobranza.guardarEdit($scope.usuarioAct).success(function(response){
+            console.log(response);
+            if(response=="true"){
+                //alert("Datos guardados");
+                $scope.editarUsuario.alert=true;
+                $scope.usuarioNuevo.alert=false;
+                $scope.alerts.push({type: 'success', msg: 'Datos actualizados exitosamente!'});
+                //metodo que cierra en automatico el alert recientemente ingresado al vector alerts
+                $timeout(function()
+                {
+                    $scope.alerts.splice($scope.alerts.indexOf({type: 'success', msg: 'Datos actualizados exitosamente!'}), 1);
+                }, 3000);
+                $scope.selected=false;
+                servicioCobranza.getUsuarios().success(function (response) {
+                        $scope.usuarios = response;
+                        data=response;
+       
+                        $scope.tableParams = new ngTableParams({
+                            page: 1,            // show first page
+                            count: 10           // count per page
+                        }, 
+                        {
+                            total: data.length, // length of data
+                            getData: function($defer, params) {
+                                params.settings({ counts: data.length > 10 ? [10,20] : [10,20]});
+                                $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        });
+                    });
+                $scope.accion="listar";
+            }
+            else{
+                //alert("Error al guardar los datos");
+                $scope.editarUsuario.alert=true;
+                $scope.usuarioNuevo.alert=false;
+                $scope.alerts.push({type: 'danger', msg: 'Error al grabar los datos!'});
+                //metodo que cierra en automatico el alert recientemente ingresado al vector alerts
+                $timeout(function()
+                {
+                    $scope.alerts.splice($scope.alerts.indexOf({type: 'danger', msg: 'Error al grabar los datos!'}), 1);
+                }, 3000);
+                $scope.selected=false;
+                
+            }
+        });
+    }
+
+    $scope.editar=function(id_usuario){
+            $scope.usuarioAct=new Object();
+            $scope.alerts = [];
+            $scope.selected=false;
+            servicioCobranza.getOne(id_usuario).success(function(response){
+            $scope.usuarioAct=response;
+            console.log($scope.usuarioAct);
+            $scope.accion="editar";
+            
+            $scope.editarUsuario.$setPristine();
+            $scope.editarUsuario=new Object();
+            $scope.usuarioNuevo=new Object();
+            $scope.editarUsuario.alert=false;
+            $scope.usuarioNuevo.alert=false;
+            
+        });
+    }
+
+    
+    
+    $scope.eliminar=function(id_usuario){
+      $scope.alerts = [];
+      $scope.usuarioAct=new Object();
+      var nombre = {};
+      
+      $scope.selected=false;
+      $scope.editarUsuario.alert=false;
+      $scope.usuarioNuevo.alert=false;
+      
+      
+      servicioCobranza.getOne(id_usuario).success(function(response){
+            $scope.usuarioAct=response;
+            console.log($scope.usuarioAct);
+            nombre=$scope.usuarioAct.nombre;
+            
+            var modalInstance = $modal.open({
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl as ic',
+            size: 'lg',
+            resolve: {
+                Usuario: function(){ 
+                                    
+                                    
+                                    return nombre;
+                                   }
+                     }
+            });
+            
+            
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+
+
+                if($scope.selected==true){
+
+                    servicioCobranza.eliminarUsuario(id_usuario).success(function(response){
+                        if(response=="true"){
+                            $scope.alerts.push({type: 'success', msg: 'Usuario eliminado exitosamente!'});
+                            //metodo que cierra en automatico el alert recientemente ingresado al vector alerts
+                            $timeout(function()
+                            {
+                                $scope.alerts.splice($scope.alerts.indexOf({type: 'success', msg: 'Usuario eliminado exitosamente!'}), 1);
+                            }, 3000);
+
+                            servicioCobranza.getUsuarios().success(function (response) {
+                                $scope.usuarios = response;
+                                data=response;
+
+                                $scope.tableParams = new ngTableParams({
+                                    page: 1,            // show first page
+                                    count: 10           // count per page
+                                }, 
+                                {
+                                    total: data.length, // length of data
+                                    getData: function($defer, params) {
+                                        params.settings({ counts: data.length > 10 ? [10,20] : [10,20]});
+                                        $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                                    }
+                                });
+
+
+                            });
+                            $scope.accion="listar";
+
+                        }
+                        else{
+                            //alert("Error al eliminar");
+                            $scope.alerts.push({type: 'danger', msg: 'Error al eliminar usuario!'});
+                            //metodo que cierra en automatico el alert recientemente ingresado al vector alerts
+                            $timeout(function()
+                            {
+                                $scope.alerts.splice($scope.alerts.indexOf({type: 'danger', msg: 'Error al eliminar usuario!'}), 1);
+                            }, 3000);
+                        }
+                    });
+                }
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+                });
+      });
+     
+       
+    }
+        
+});
+
+
+
+angular.module('CobranzaApp.controllers').controller('ModalInstanceCtrl', function ( $scope, $modalInstance, Usuario) {
+
+  $scope.selected=false;
+  $scope.usuario=Usuario;
+  console.log($scope.usuario);
+  $scope.ok = function () {
+    $scope.selected=true;  
+    $modalInstance.close($scope.selected);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+
+angular.module('CobranzaApp.controllers').controller('OtherController', function ( $scope) {
+  $scope.pageChangeHandler = function(num) {
+    console.log('going to page ' + num);
+  };
+});

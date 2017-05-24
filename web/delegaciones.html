@@ -1,0 +1,186 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/angular.js"></script>
+        <!--<script src="js/angular-strap.js"></script>
+        <script src="js/angular-strap.tpl.js"></script>-->
+        <script src="js/angular-messages.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/angular-animate.js"></script>
+        <script src="js/ui-bootstrap-tpls-0.11.2.js"></script>
+        <script src="js/moment.min.js"></script>
+    	<script src="js/controladores/app.js"></script>
+	<script src="js/controladores/oficinas_controller.js"></script>
+        <script src="js/controladores/oficinas_services.js"></script>
+        
+        
+        <script src="js/ng-table.js"></script>
+        
+
+        
+        <script type="text/javascript" language="JavaScript" src="js/jquery-1.7.2.js"></script>
+        <link href="stylesheets/animate.css" rel="stylesheet">
+        <!--<link href="stylesheets/style.css" rel="stylesheet">-->
+        <link href="estilos/estilosiframe.css" rel="stylesheet" type="text/css">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="estilos/ng-table.css" rel="stylesheet" type="text/css">
+        
+    </head>
+    <body ng-app="CobranzaApp" ng-controller="oficinasController" style="background-color: white">
+        
+        <center ng-show="accion=='listar'">
+            
+        <div>
+            
+            <table width="80%" class="tituloDatos" >
+                <tr>
+                    <td width="80%"><h2>Catálogo de oficinas</h2></td>
+                    <td ng-click="nuevo()" style="cursor:pointer">
+                        <img src="imagenes/capturar.png" width="24" height="24" alt="Capturar">Agregar
+                    </td>
+                </tr>
+            </table>
+           
+            
+            <table id="datos" class="tablesorter" width="80%">
+                <thead>
+                    <tr>
+                        <th><a href='#x' ng-click="campo='descripcion'; reverse=!reverse">Descripción</a></th>
+                        <th><a href='#x' ng-click="campo='direccion'; reverse=!reverse">Dirección</a></th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="deleg in delegaciones | orderBy:campo:reverse" ng-class-odd="'odd'" ng-class-even="'impar'">
+                        <td>{{deleg.descripcion}}</td>
+                        <td>{{deleg.direccion}}</td>
+                        <td><img class="boton_img" src="imagenes/editar.png" width="24" height="24" alt="editar" ng-click='editar(deleg.idDelegacion)'></td>
+                        <td><img class="boton_img" src="imagenes/eliminar.png" width="16" height="16" alt="Eliminar" ng-click="eliminar(deleg.idDelegacion)"></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+           
+    
+        </center>
+    
+    <div ng-show="accion=='nuevo'">
+        
+            <br>
+            <div class="container">
+            <div class="panel panel-default">
+                
+                <div class="panel-heading">Nueva oficina</div>
+            
+            <div class="panel-body">
+            <form  role="form"  name="nuevaOficina">
+                <div class="form-group" ng-class="{ 'has-success' : nuevaOficina.descripcion.$valid && nuevaOficina.descripcion.$dirty, 'has-error' : nuevaOficina.descripcion.$error.required && nuevaOficina.descripcion.$dirty }">    
+                    <label class="control-label" for="descripcion">Descripcion</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='oficinaNew.descripcion' name="descripcion" placeholder="ingresa la descripcion"  data-placement="right" data-type="info" data-container="body" data-trigger="focus" bs-tooltip="tooltip_descripcion" required autofocus />
+                            <div class="help-block text-danger" ng-show="nuevaOficina.descripcion.$dirty && nuevaOficina.descripcion.$error.required" ng-messages="nuevaOficina.descripcion.$error">
+                                <div  ng-message="required">La Descripción es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : nuevaOficina.direccion.$valid && nuevaOficina.direccion.$dirty, 'has-error' : nuevaOficina.direccion.$error.required && nuevaOficina.direccion.$dirty }">    
+                    <label class="control-label" for="direccion">Dirección</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='oficinaNew.direccion' placeholder="ingresa la direccion" name="direccion" data-placement="right" data-type="info" data-container="body" data-trigger="focus" bs-tooltip="tooltip_direccion" required/>
+                            <div class="help-block text-danger" ng-show="nuevaOficina.direccion.$dirty && nuevaOficina.direccion.$error.required" ng-messages="nuevaOficina.direccion.$error">
+                                <div  ng-message="required">La Dirección es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+    
+                <center>
+                    <input type="button" class="btn btn-primary btn-lg" value='Guardar' ng-click="guardarNuevo()"  ng-disabled="nuevaOficina.$invalid"/>
+                    <input type="button" class="btn btn-primary btn-lg" value='Cancelar' ng-click="accion='listar'" />
+                </center>    
+            </form>    
+            </div>
+            
+            </div>
+            </div>
+            
+       
+    </div>
+    
+    <div ng-show="accion=='editar'">
+        
+            <br>
+            <div class="container">
+            <div class="panel panel-default">
+            <div class="panel-heading">Editar oficina</div>
+            <div class="panel-body">
+            <form role="form"  name="editarOficina">
+            
+                <div class="form-group" ng-class="{ 'has-success' : editarOficina.descripcion.$valid, 'has-error' : editarOficina.descripcion.$error.required && editarOficina.descripcion.$dirty }">    
+                    <label class="control-label" for="descripcion">Descripcion</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='oficinaAct.descripcion' name="descripcion" placeholder="ingresa la descripcion" data-placement="right" data-type="info" data-container="body" data-trigger="focus" bs-tooltip="tooltip_descripcion"  required autofocus />
+                            <div class="help-block text-danger" ng-show="editarOficina.descripcion.$error.required" ng-messages="editarOficina.descripcion.$error">
+                                <div  ng-message="required">La Descripción es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="form-group" ng-class="{ 'has-success' : editarOficina.direccion.$valid, 'has-error' : editarOficina.direccion.$error.required && editarOficina.direccion.$dirty }">    
+                    <label class="control-label" for="direccion">Dirección</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" ng-model='oficinaAct.direccion' placeholder="ingresa la direccion" name="direccion" data-placement="right" data-type="info" data-container="body" data-trigger="focus" bs-tooltip="tooltip_direccion"  required/>
+                            <div class="help-block text-danger" ng-show="editarOficina.direccion.$error.required" ng-messages="editarOficina.direccion.$error">
+                                <div  ng-message="required">La Dirección es obligatoria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+           
+                <center>
+                    <input type="button" class="btn btn-primary btn-lg" value='Guardar' ng-click="guardarEdit()"  ng-disabled="editarOficina.$invalid"/>
+                    <input type="button" class="btn btn-primary btn-lg" value='Cancelar' ng-click="accion='listar'" />
+                    
+                </center>
+            </form>
+            </div>
+            </div>
+            </div>
+        
+    </div>
+    
+    
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Confirme eliminación</h3>
+        </div>
+        <div class="modal-body">
+            Confirme eliminación
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Si</button>
+            <button class="btn btn-warning" ng-click="cancel()">No</button>
+        </div>
+    </script>
+ 
+    <alert ng-show="selected==true" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    
+    </body>
+</html>

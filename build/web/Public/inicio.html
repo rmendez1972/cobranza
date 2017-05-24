@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<!--
+Proyecto: 	Sistemas de cuentas por Cobrar
+Empresa: 	Secretaria de Desarrollo Urbano y Vivienda
+Autor: 		Téc. Ismael García Hernández
+Fecha: 		28-08-2012.
+Modificado:	05-09-2012.
+-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sistema Cuentas x Cobrar</title>
+	<!--
+	<script type="text/javascript" src="js/jquery_1_8_0_min.js"></script>
+	<script>
+	$(document).ready(function() {
+    alert('La pagina se ha cargado correctamente');
+	});
+	</script>-->
+
+        <link href="estilos/estilos.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="estilos/munisin_files/css3menu1/style.css" type="text/css">
+        <link href="estilos/estilosiframe.css" rel="stylesheet" type="text/css">
+<style> ._css3m{display:none;}</style>
+       
+
+</head>
+
+<body>
+    
+    <header>
+        <!--<pre>Secretaría de Desarrollo Urbano y Vivienda
+Sistema de Cuentas por Cobrar V 0.1x
+        </pre>-->
+    </header>
+    
+    <nav>
+    <!-- Comienza el menu -->
+        <ul id="css3menu1" class="topmenu">
+            <li class="topfirst"><a href="#" style="height:32px;line-height:32px;">
+<!--INICIO-------------------------->            
+            <img src="estilos/munisin_files/css3menu1/home2.png" alt=""/>Iniciox</a></li>
+<!--COBRANZA-------------------------->            
+            <li class="topmenu"><a href="#" style="height:32px;line-height:32px;"><img src="imagenes/cobranza32.png" width="32" height="32" alt="cobranza" />Cobranza </a>
+            	<ul>
+                    <li> <a href="#"><span><img src="imagenes/unlock2.png" width="24" height="24" alt="Apertura de caja" />Apertura de caja</span></a>
+                        <ul>
+                                <li><a href="controladorcajas?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Apertura Cajas</a></li>
+                                <li><a href="controladorcajas?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar Cajas</a></li>
+                                
+                            
+                        </ul>
+                    </li>
+                    <hr />
+                    <!--<li> <a href="#"><span><img src="imagenes/unlock2.png" width="24" height="24" alt="Apertura de caja" />Genera Referencia</span></a>
+                        <ul>
+                                <li><a href="controladorreferencia?operacion=consultar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Genera Referencia" />Referencia para Pago en SH</a></li>
+                                
+                                
+                            
+                        </ul>
+                    </li>-->
+                    <li><a href="#"><span><img src="imagenes/unlock2.png" width="24" height="24" alt="Genera Referencia SH" />Genera Referencia SH</span></a>
+                        <ul>
+                                <li><a href="controladorreferencia?operacion=consultar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Genera Referencia SH" />Referencia para Pago en SH</a></li>
+                                
+                                
+                            
+                        </ul>
+                    </li>
+                    <li> <a href="#"><img src="imagenes/xprogramas.png" width="24" height="24" alt="Por progrmas" />Por programas</a></li>
+                    <li> <a href="#"><span><img src="imagenes/xdiversos.png" width="24" height="24" alt="Por diversos" />Por diversos</span> </a>
+                        <ul>
+                                <li><a href="controladorcobrodiversosedocta?operacion=cobrar" target="show"><img src="imagenes/cortecaja.png" width="24" height="24" alt="Cobro Otros Ingresos" />Ejecutar Cobro Otros Ingresos</a></li>
+                            
+                        </ul>
+                    
+                    </li>
+                    
+                    <li> <a href="#"><img src="imagenes/lotecomercial.png" width="24" height="24" alt="Prepagos lotes comerciales" />Prepagos lotes comerciales</a></li>
+                    <li> <a href="#"><img src="imagenes/mec20.png" width="24" height="24" alt="Prepagos mecánic 20" />Prepagos mecánica 20</a></li>
+                    <hr/>
+                    <li> <a href="#"><span><img src="imagenes/cortecaja.png" width="24" height="24" alt="Corte de caja" />Corte de caja</span></a>
+                    	<ul>
+                        	<li> <a href="#">General</a></li>
+                            <li> <a href="#">Por ccajero</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="#"><img src="imagenes/exportacioncobraanza.png" width="24" height="24" alt="Exportacion cobranza" />Exportación de cobranza</a></li>
+                    <li> <a href="#"><span><img src="imagenes/cancelacionrecibo.png" width="24" height="24" alt="Csncelcion recibos" />Cancelación de recibos</span></a>
+                   	<ul>
+                            <li> <a href="#">Por programas</a></li>
+                            <li> <a href="#">Por diversos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            
+            
+            </li>
+<!--FUNCIONES-------------------------->            
+            <li class="topmenu"><a href="#" style="height:32px;line-height:32px;"><img src="imagenes/funciones32.png" width="32" height="32" alt="funciones" />Funciones </a>
+            	<ul>
+                    <li> <a href="#"><span><img src="imagenes/altacandidatos.png" width="24" height="24" alt="Alta a candidatos" />Alta de contratados</span></a>
+                            <ul>
+                                <li><a href="controladorcandidatos?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                                <li><a href="controladorcandidatos?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                                <li><a href="controladorcandidatos?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                            
+                            </ul>
+                        </li>
+                    <li> <a href="#"><span><img src="imagenes/apertura.png" width="24" height="24" alt="Apertura de estados de cuenta" />Apertura estasdo de cuenta</span></a>
+                            <ul>
+                                
+                                <li><a href="controladoraperturaedoscta?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                                <li><a href="controladoraperturaedoscta?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                            
+                            </ul>
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/comercializaciones.png" width="24" height="24" alt="Tabla de comercializacion" />Comercializaciones</span></a>
+                    	<ul>
+                        	<li> <a href="#">De un beneficiario</a></li>
+                            <li> <a href="#">De varios benefiarios</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="#"><img src="imagenes/consultasaldos.png" width="24" height="24" alt="Consulta saldos" />Consulta de saldos</a></li>
+                    <li> <a href="#"><span><img src="imagenes/edocuenta.png" width="24" height="24" alt="Consulta estados de cuenta" />Consutal de estados de cuenta</span></a>
+                    	<ul>
+                            <li> <a href="controladoredocta?operacion=consultar" target="show"><img src="imagenes/consultas.png" width="24" height="24" alt="Consultar" />Por programas</a></li>
+                            <li> <a href="#">Por diversos</a></li>
+                        </ul>
+                    </li>
+                    <hr/>
+                    <li> <a href="#"><span><img src="imagenes/bendiv.png" width="24" height="24" alt="Mantenimiento a movimientos diversos" />Mantenimiento a movimientos diversos</span></a>
+                        <ul>
+                            <li><a href="controladormtomovdiv?operacion=consultar" target="show"><img src="imagenes/consultas.png" width="24" height="24" alt="Consultar" />Consultar</a></li>
+                            
+                            
+                        </ul>
+                    
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/manedocuenta.png" width="24" height="24" alt="Mantenimiento a estados de cuenta" />Mantenimiento a estados de cuenta</span></a>
+                        <ul>
+                            <li><a href="controladormtoedocta?operacion=consultar" target="show"><img src="imagenes/consultas.png" width="24" height="24" alt="Consultar" />Consultar</a></li>
+                            
+                            
+                        </ul>
+                    
+                    </li>
+                    <hr/>
+                    <li> <a href="#"><img src="imagenes/excel.png" width="24" height="24" alt="Exportacion a excel" />Exportación a EXCEL</a></li>
+                    <li> <a href="#"><img src="imagenes/web.png" width="24" height="24" alt="publicacion web" />Publicaación Web</a></li>
+                    <li> <a href="#"><img src="imagenes/importacion.png" width="24" height="24" alt="Importacion cobranza" />Importación cobranza</a></li>
+                    <li> <a href="#"><img src="imagenes/actualizacion.png" width="24" height="24" alt="actaulizacion de saldos por incremento de sal. min." />Act. saldos por incremento de sal.min.</a></li>
+                    <hr/>
+                    <li> <a href="#"><img src="imagenes/rap.png" width="24" height="24" alt="Generacion del RAP" />Generación RAP</a></li>
+                    <li> <a href="#"><img src="imagenes/banco.png" width="24" height="24" alt="Consulta estados de cuenta" />Importación Banorte</a></li>
+                </ul>
+            </li>
+<!--CATALOGOS-------------------------->            
+            <li class="topmenu"><a href="#" style="height:32px;line-height:32px;"><span><img src="imagenes/catlogos.png" width="32" height="32" alt="catalogos" />Catálogos</span></a>
+            	
+
+                <ul>
+                	<li> <a href="#"><span><img src="imagenes/configuracion.png" width="24" height="24" alt="De configuraci{on" />De configuración</span></a>
+                    	<hr />
+                    	<ul>
+                		<li> <a href="#">Generales de la empresa</a></li>
+                    		<li> <a href="controladorusuarios?operacion=ver" target="show">Usuarios</a></li>
+                    		<li> <a href="#">Niveles de usuarios</a></li>
+                    		<li> <a href="#">Firmas de funcionarios</a></li>
+                    		<li> <a href="controladordelegacion?operacion=ver"  target="show">Oficinas SEDUVI</a></li>
+                    		<li> <a href="controladormodulosrec?operacion=ver"  target="show">Módulos de recaudación</a></li>
+                    		<li> <a href="#">Emisiones de órdenes de cobro</a></li>
+                		</ul>
+                    
+               		</li>
+                    
+                    <li> <a href="#"><span><img src="imagenes/creditos.png" width="24" height="24" alt="Tipos de créditos" />Tipos de crédito</span></a>
+                        <ul>
+                            <li><a href="controladortipocred?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                            <li><a href="controladortipocred?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Lisar" />Listar</a></li>
+                            <li><a href="controladortipocred?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/condiciones.png" width="24" height="24" alt="Condiciones financieras" />Condiciones financieras</span></a>
+                         <ul>
+                            <li><a href="controladorcatprog?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                            <li><a href="controladorcatprog?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Listar" />Listar</a></li>
+                            <li><a href="controladorcatprog?operacion=prepararimprimir" target="show"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                        </ul>
+                    
+                    
+                    </li>
+                    
+                    <li> <a href="#"><span><img src="imagenes/claves.png" width="24" height="24" alt="Claves estados de cuenta" />Claves edos.ctas.</span></a>
+                        <ul>
+                            <li><a href="controladorclavemov?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                            <li><a href="controladorclavemov?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                            <li><a href="controladorclavemov?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                            
+                        </ul>
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/claves_mov_div.png" width="24" height="24" alt="Claves de movimientos diversos" />Claves mov.divs.</span></a>
+                        <ul>
+                            <li><a href="controladorclavediv?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                            <li><a href="controladorclavediv?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                            <li><a href="controladorclavediv?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                            
+                        </ul>
+                    
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/claves_bonif.png" width="24" height="24" alt="Claves de bonificaciones" />Claves bonificación</span></a>
+                        <ul>
+                            <li><a href="controladorbonific?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                            <li><a href="controladorbonific?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                            <li><a href="controladorbonific?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                            
+                        </ul>
+                    </li>
+                    <hr />
+                    <li><a href="#"><span><img src="imagenes/tasas.png" width="24" height="24" alt="Tasas financieras" />Tasas Financieras</span></a>
+                    <hr />
+            		<ul>
+                            <li><a href="#"><span>CPP</span></a>
+                    		<ul>
+                                    <li><a href="controladorcpp?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                                    <li><a href="controladorcpp?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                                    <li><a href="controladorcpp?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                                    <li><a href="#" target="show"><img src="imagenes/editar.png" width="24" height="24" alt="Modificar" />Modificar </a></li>
+                                </ul>
+                            </li>
+                            
+                            
+                            <li><a href="#"><span>Tie</span></a>
+                           	<ul>
+                                    <li><a href="#" target="_new">Capturar </a></li>
+                                    <li><a href="#" target="_new">Listar</a></li>
+                                    <li><a href="#" target="_new">Imprimir  </a></li>
+                                    <li><a href="#" target="_new">Modificar </a></li>
+                                </ul>
+                            </li>
+                            
+                            <li><a href="#"><span style="color: #CCC">UDIS</span></a>
+                           	<ul>
+                                    <li><a href="#" target=target="_new">Capturar </a></li>
+                                    <li><a href="#" target=target="_new">Listar</a></li>
+                                    <li><a href="#" target=target="_new">Imprimir  </a></li>
+                                    <li><a href="#" target=target="_new">Modificar </a></li>
+                                </ul>
+                            </li>
+                            
+                            <li><a href="#"><span>Sal.min. regional</span></a>
+                           	<ul>
+                                    <li><a href="controladorsalmin?operacion=capturar" target="show">Capturar </a></li>
+                                    <li><a href="controladorsalmin?operacion=listar" target="show">Listar</a></li>
+                                    <li><a href="controladorsalmin?operacion=imprimir" target="_new">Imprimir  </a></li>
+                                    <li><a href="#" target="show">Modificar </a></li>
+                                </ul>                    
+                            </li>
+                            
+                            
+                            <li><a href="#"><span style="color: #CCC">Sal.min. DF</span></a>
+                           	<ul>
+                                    <li><a href="#" target=target="_new"><span style="color: #CCC">Capturar </span></a></li>
+                                    <li><a href="#" target=target="_new"><span style="color: #CCC">Listar</span></a></li>
+                                    <li><a href="#" target=target="_new"><span style="color: #CCC">Imprimir</span>  </a></li>
+                                    <li><a href="#" target=target="_new"><span style="color: #CCC">Modificar</span> </a></li>
+                                </ul>
+                            </li>
+                       
+                                            
+			</ul>
+                    </li>
+                    <!--<li><a href="#"><span>Cajeros</span></a>
+                    	<ul>
+                            <li><a href="#" target="show">Capturar </a></li>
+                            <li><a href="#" target="show">Listar</a></li>
+                            <li><a href="#" target="_new">Imprimir  </a></li>
+                            <li><a href="#" target="show">Modificar </a></li>
+                    	</ul>
+                    </li>
+                    <li><a href="#"><span>Programas</span></a>
+                        <ul>
+                            <li><a href="#" target="show">Capturar </a></li>
+                            <li><a href="#" target="show">Listar</a></li>
+                            <li><a href="#" target="_new">Imprimir  </a></li>
+                            <li><a href="#" target="show">Modificar </a></li>
+                    	</ul>
+                    </li>
+                    <li><a href="#"><span>Claves de págo</span></a>
+                    	<ul>
+                            <li><a href="#" target="show">Capturar </a></li>
+                            <li><a href="#" target="show">Listar</a></li>
+                            <li><a href="#" target="_new">Imprimir  </a></li>
+                            <li><a href="#" target="show">Modificar </a></li>
+                    	</ul>
+                    </li>
+                    <li><a href="#"><span>Usuarios</span></a>
+                        <ul>
+                            <li><a href="#" target="show">Capturar </a></li>
+                            <li><a href="#" target="show">Listar</a></li>
+                            <li><a href="#" target="_new">Imprimir  </a></li>
+                            <li><a href="#" target="show">Modificar </a></li>
+                    	</ul>
+                    </li>-->
+                    <li> <a href="#"><img src="imagenes/municipios.png" width="24" height="24" alt="Municipios" />Municipios</a></li>
+                    <li> <a href="#"><img src="imagenes/localidad.png" width="24" height="24" alt="Localidades" />Localidades</a></li>
+                    <li> <a href="#"><img src="imagenes/municipios.png" width="24" height="24" alt="Delegacionnes" />Delegaciones</a></li>
+                    
+                    <li> <a href="#"><span><img src="imagenes/localidad.png" width="24" height="24" alt="Colonias" />Colonias</span></a>
+                        <ul>
+                            <li><a href="controladorcolonias?operacion=capturar" target="show"><img src="imagenes/capturar.png" width="24" height="24" alt="Capturar" />Capturar</a></li>
+                            <li><a href="controladorcolonias?operacion=listar" target="show"><img src="imagenes/enlistar.png" width="24" height="24" alt="Capturar" />Listar</a></li>
+                            <li><a href="controladorcolonias?operacion=imprimir" target="_new"><img src="imagenes/reportesb.png" width="24" height="24" alt="Reporte" />Imprimir  </a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+<!--REPORTES-------------------------->            
+            <li class="topmenu"><a href="#" style="height:32px;line-height:32px;"><img src="imagenes/reportesb.png" width="32" height="32" alt="reportes" />Reportes </a>
+            	<ul>
+                	<li> <a href="#"><span><img src="imagenes/configuracion.png" width="24" height="24" alt="De configuracion" />De configuración</span></a>
+                    	<ul>
+                            <li><a href="#" target="_new">Usuarios </a></li>
+                            <li><a href="#" target="_new">Niveles  de usuarios</a></li>
+                            <li><a href="#" target="_new">Firmas de funcionarios</a></li>
+                    	</ul>
+                    </li>
+                    <hr />
+                    <li> <a href="#"><img src="imagenes/claves.png" width="24" height="24" alt="Cat.movimientos de estados de cuenta" />Cat. de Mov. de Edos.Cuenta</a></li>
+                    <li> <a href="#"><img src="imagenes/claves_mov_div.png" width="24" height="24" alt="Cat. movimientos diversos" />Cat. de Mov. de diversos</a></li>
+                    <li> <a href="#"><img src="imagenes/claves_bonif.png" width="24" height="24" alt="Cat de bonificaciones" />Cat. de bonificaciones</a></li>
+                    <li> <a href="#"><img src="imagenes/planes_venta.png" width="24" height="24" alt="planes de ventas" />Planes de venta</a></li>
+                    <li> <a href="#"><span><img src="imagenes/cortecaja.png" width="24" height="24" alt="Cobranza" />Cobranza</span></a>
+                    	<ul>
+                            <li><a href="#" target="_new">A impresora </a></li>
+                            <li><a href="#" target="_new">A un archivo (.dbf)</a></li>
+                    	</ul>
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/consultasaldos.png" width="24" height="24" alt="Saldos" />Saldos</span></a>
+                    	<ul>
+                        	<li><a href="#" target="_new">A impresora </a></li>
+                            <li><a href="#" target="_new">A un archivo (.dbf)</a></li>
+
+                    	</ul>
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/cartera.png" width="24" height="24" alt="Cartera vencida" />Cartera vencida</span></a>
+                    	<ul>
+                            <li><a href="#" target="_new">Por antiguedad de saldos</a></li>
+                            <li><a href="#" target="_new">Por letras vencidas)</a></li>
+                        </ul>
+
+                    </li>
+                    <li> <a href="#"><span><img src="imagenes/provisionamiento.png" width="24" height="24" alt="Provisionamientos" />Provisionamientos</span></a>
+                    	<ul>
+                            <li><a href="#" target="_new">Por rango de fechas</a></li>
+                            <li><a href="#" target="_new">Por No. de Póliza</a></li>
+                        </ul>
+                    </li>
+                    <hr />
+                    <li> <a href="#"><span><img src="imagenes/tasas.png" width="24" height="24" alt="Tasas financieras" />Tasas financieras</span></a>
+                    	<ul>
+                            <li><a href="#" target="_new">C.P.P. </a></li>
+                            <li><a href="#" target="_new">T.I.E.</a></li>
+                            <li><a href="#" target="_new">UDIS</a></li>
+                            <li><a href="#" target="_new">Sal. Min. Regional</a></li>
+                            <li><a href="#" target="_new">Sal. Min D.F.</a></li>
+                    	</ul>
+                    </li>
+                    <hr />
+                    <li> <a href="#"><img src="imagenes/aseguradora.png" width="24" height="24" alt="Tasas financieras" />Saldos a capital para aseguradora</a></li>
+                    <li> <a href="#"><span><img src="imagenes/grafico.png" width="24" height="24" alt="Tasas financieras" />Gráficos</span></a>
+                    	<ul>
+                            <li><a href="#" target="_new">Comprativo ing. por día</a></li>
+                            <li><a href="#" target="_new">Comparativo ing. por mes</a></li>
+                    	</ul>
+                    
+                    </li>
+                </ul>
+            </li>
+<!--CONSULTAS-------------------------->            
+            <li class="topmenu"><a href="#" style="height:32px;line-height:32px;"><img src="imagenes/consultas.png" width="32" height="32" alt="consultas" />Consultas </a>
+            	<ul>
+                	<li> <a href="#"><img src="imagenes/puntuales.png" width="24" height="24" alt="Puntuales" />Puntuales</a></li>
+                    <li> <a href="#"><img src="imagenes/liquidados.png" width="24" height="24" alt="Liquidados" />liquidados</a></li>
+                    <li> <a href="#"><img src="imagenes/cancelados.png" width="24" height="24" alt="Cancelados" />Cancelados</a></li>
+                    <li> <a href="#"><img src="imagenes/alcorriente.png" width="24" height="24" alt="Al corriente" />Al corriente</a></li>
+                    <li> <a href="#"><img src="imagenes/saldoenganche.png" width="24" height="24" alt="Al corriente" />Saldo en enganche</a></li>
+                    <li> <a href="#"><img src="imagenes/juridico.png" width="24" height="24" alt="Al corriente" />En proceso jurídico</a></li>
+                    <li> <a href="#"><img src="imagenes/pagotitulacion.png" width="24" height="24" alt="Al corriente" />Con pago de titulación</a></li>
+                </ul>
+            </li>
+<!--UTILERIAS-------------------------->            
+            <li class="topmenu"><a href="#" style="height:32px;line-height:32px;"><img src="imagenes/utileriasb.png" width="32" height="32" alt="utilerias" />Utilerías </a>
+            <ul>
+                	<li> <a href="#"><img src="imagenes/respaldo.png" width="24" height="24" alt="Respaldo" />Respaldo</a></li>
+                    <li> <a href="#"><img src="imagenes/recuperacion.png" width="24" height="24" alt="Recuperación" />Recuperación</a></li>
+                    <li> <a href="#"><img src="imagenes/reindexacion.png" width="24" height="24" alt="Reindexaxión" />Reindexación</a></li>
+                    <hr />
+                    <li> <a href="#"><img src="imagenes/calculadora.png" width="24" height="24" alt="Calculadora" />Calculadora</a></li>
+                    <li> <a href="#"><img src="imagenes/depurartablas.png" width="24" height="24" alt="Depurar tablas" />Depurar tablas</a></li>
+                    <li> <a href="#"><img src="imagenes/auditoria.png" width="24" height="24" alt="Auditoria de bitácora" />Auditoría de bitácora</a></li>
+                    <hr />
+                    <li> <a href="#"><img src="imagenes/depurarben.png" width="24" height="24" alt="Depurar benef. sus edos. cuenta y bonif." />Depurar beneficiarios<br />sus edos.cuenta y bonif.</a></li>
+                </ul>
+            </li>
+<!--AYUDA-------------------------->            
+            <li class="topmenu"><a href="#" 		style="height:32px;line-height:32px;"><img src="imagenes/ayuda.png" width="32" height="32" alt="ayuda" />Ayuda </a></li>
+<!--SALIR-------------------------->            
+            <li class="topmenu"><a href="intro.html"style="height:32px;line-height:32px;"><img src="imagenes/salir.png" width="32" height="32" alt="salir" />Salir</a></li>
+	</ul>
+	<!-- End css3menu.com BODY section -->
+	</nav>
+
+	<section>
+            <!--<iframe  name="show" align="middle" frameborder="0" marginwidth="2" marginheight="2" scrolling="auto" width="900px"  height="600" title="show" src="inicio1.html">-->
+                <iframe  seamless="seamless" name="show" id="show" align="middle" frameborder="0" marginwidth="2" marginheight="2"  scrolling="yes" width="900px"  height="600" title="show" src="inicio1.html">
+            </iframe>
+        </section>
+    <footer> <!--class="degradado1">-->
+        
+      <nav class="footerimagen"></nav>
+       
+      <table width="890" border="0" align="center" >
+          <tr>
+              <td width="350">
+                  <b><big>Secretaría de Desarrollo Urbano y Vivienda</big></b><br>
+                    Gobierno del Estado de Quintana Roo<br>
+                    Administración 2011-2016<br>
+                   Av. Alvaro Obregón No. 474 Col. Centro C.P. 77000<br>
+                        Chetumal, Quintana Roo, México<br>
+                            <a href="http://seduvi.qroo.gob.mx">http://seduvi.qroo.gob.mx</a>
+                  
+            </td>
+              <td width="200"></td>
+              <td width="276"><b><big>Contacto:</big></b><br>
+                    Direccion de Informatica<br>
+                    Departamento de Sistemas<br>
+                        Ex. 211.<br></br>
+         
+              </td>
+          </tr>
+          
+        </table>
+        
+              
+        
+	</footer>
+
+</body>
+</html>

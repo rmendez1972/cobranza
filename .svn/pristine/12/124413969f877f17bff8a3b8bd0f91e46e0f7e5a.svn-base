@@ -1,0 +1,31 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controladores;
+
+import Modelo.Gestiondelegaciones;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author arturo
+ */
+@WebServlet(name = "ControladorDelegacion", urlPatterns = {"/controladordelegacion"})
+public class ControladorDelegacion extends ControladorBase{
+    public void getall(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        Gestiondelegaciones modelo=new Gestiondelegaciones();
+        ArrayList deleg=modelo.listarDelegaciones();
+        
+        GsonBuilder builder=new GsonBuilder();
+        Gson gson=builder.create();
+        
+        response.addHeader("Content-Type", "text/html; charset=utf-8");
+        response.getWriter().write(gson.toJson(deleg));
+    }
+}

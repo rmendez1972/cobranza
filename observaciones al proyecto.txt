@@ -1,0 +1,1 @@
+1. considerar dentro de la tabla movs_edoscta un campo para la Referencia generada por web service de hacienda, y modificar todo lo que afecte ello.
